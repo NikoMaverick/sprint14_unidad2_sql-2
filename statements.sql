@@ -75,27 +75,6 @@ UPDATE usuarios SET id_rol = 3 WHERE id_usuario = 18;
 UPDATE usuarios SET id_rol = 1 WHERE id_usuario = 19;
 UPDATE usuarios SET id_rol = 2 WHERE id_usuario = 20;
 
-UPDATE usuarios SET id_rol = 4 WHERE id_usuario = 1;
-UPDATE usuarios SET id_rol = 2 WHERE id_usuario = 2;
-UPDATE usuarios SET id_rol = 1 WHERE id_usuario = 3;
-UPDATE usuarios SET id_rol = 4 WHERE id_usuario = 4;
-UPDATE usuarios SET id_rol = 2 WHERE id_usuario = 5;
-UPDATE usuarios SET id_rol = 3 WHERE id_usuario = 6;
-UPDATE usuarios SET id_rol = 3 WHERE id_usuario = 7;
-UPDATE usuarios SET id_rol = 1 WHERE id_usuario = 8;
-UPDATE usuarios SET id_rol = 1 WHERE id_usuario = 9;
-UPDATE usuarios SET id_rol = 2 WHERE id_usuario = 10;
-UPDATE usuarios SET id_rol = 4 WHERE id_usuario = 11;
-UPDATE usuarios SET id_rol = 3 WHERE id_usuario = 12;
-UPDATE usuarios SET id_rol = 2 WHERE id_usuario = 13;
-UPDATE usuarios SET id_rol = 4 WHERE id_usuario = 14;
-UPDATE usuarios SET id_rol = 4 WHERE id_usuario = 15;
-UPDATE usuarios SET id_rol = 1 WHERE id_usuario = 16;
-UPDATE usuarios SET id_rol = 3 WHERE id_usuario = 17;
-UPDATE usuarios SET id_rol = 3 WHERE id_usuario = 18;
-UPDATE usuarios SET id_rol = 1 WHERE id_usuario = 19;
-UPDATE usuarios SET id_rol = 2 WHERE id_usuario = 20;
-
 ALTER TABLE usuarios ADD FOREIGN KEY (id_rol) REFERENCES roles(id_rol);
 
 SELECT * FROM usuarios;
@@ -103,20 +82,48 @@ SELECT * FROM usuarios;
 
 -- PASO 4
 -- Tu código aquí
+SELECT usuarios.id_usuario, usuarios.nombre, usuarios.apellido, usuarios.email, usuarios.edad, roles.nombre_rol
+FROM usuarios
+JOIN roles ON usuarios.id_rol = roles.id_rol;
+
 
 
 /* Relación tipo 1:N */
 -- PASO 1
 -- Tu código aquí
+CREATE TABLE categorias (
+id_categoria INT AUTO_INCREMENT PRIMARY KEY,
+nombre_categoria VARCHAR(100) NOT NULL
+);
 
+INSERT INTO categorias (nombre_categoria) VALUES
+('Electrónicos'),
+('Ropa y Accesorios'),
+('Libros'),
+('Hogar y Cocina'),
+('Deportes y aire libre'),
+('Salud y cuidado personal'),
+('Herramientas y mejoras para el hogar'),
+('Juguetes y juegos'),
+('Automotriz'),
+('Música y Películas');
 
 -- PASO 2
 -- Tu código aquí
-
+ALTER TABLE usuarios ADD COLUMN id_categoria INT;
 
 -- PASO 3
 -- Tu código aquí
-
+UPDATE usuarios SET id_categoria = 1 WHERE id_usuario IN (1, 5, 9, 13, 17);
+UPDATE usuarios SET id_categoria = 2 WHERE id_usuario IN (2, 4, 6, 8, 11, 13, 15, 17);
+UPDATE usuarios SET id_categoria = 3 WHERE id_usuario IN (3, 6, 9, 7);
+UPDATE usuarios SET id_categoria = 4 WHERE id_usuario IN (5, 10, 12);
+UPDATE usuarios SET id_categoria = 5 WHERE id_usuario IN (2, 14, 16);
+UPDATE usuarios SET id_categoria = 6 WHERE id_usuario IN (7, 18, 20);
+UPDATE usuarios SET id_categoria = 7 WHERE id_usuario IN (1, 2, 20);
+UPDATE usuarios SET id_categoria = 8 WHERE id_usuario IN (2, 6, 8, 17);
+UPDATE usuarios SET id_categoria = 9 WHERE id_usuario IN (9, 11, 18);
+UPDATE usuarios SET id_categoria = 10 WHERE id_usuario IN (2, 3, 4, 6, 9, 14, 15, 17, 20);
 
 -- PASO 4
 -- Tu código aquí
