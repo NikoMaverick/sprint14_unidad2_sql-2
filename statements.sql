@@ -127,6 +127,11 @@ UPDATE usuarios SET id_categoria = 10 WHERE id_usuario IN (2, 3, 4, 6, 9, 14, 15
 
 -- PASO 4
 -- Tu código aquí
+SELECT usuarios.id_usuario, usuarios.nombre, usuarios.apellido, usuarios.email, usuarios.edad, roles.nombre_rol, categorias.nombre_categoria
+FROM usuarios
+JOIN roles ON usuarios.id_rol = roles.id_rol;
+JOIN categorias ON usuarios.categorias = categorias.id_categoria;
+
 
 /* Relación tipo N:M */
 -- PASO 1
