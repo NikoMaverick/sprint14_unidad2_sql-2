@@ -118,7 +118,7 @@ UPDATE usuarios SET id_categoria = 1 WHERE id_usuario IN (1, 5, 9, 13, 17);
 UPDATE usuarios SET id_categoria = 2 WHERE id_usuario IN (2, 4, 6, 8, 11, 13, 15, 17);
 UPDATE usuarios SET id_categoria = 3 WHERE id_usuario IN (3, 6, 9, 7);
 UPDATE usuarios SET id_categoria = 4 WHERE id_usuario IN (5, 10, 12);
-UPDATE usuarios SET id_categoria = 5 WHERE id_usuario IN (2, 14, 16);
+UPDATE usuarios SET id_categoria = 5 WHERE id_usuario IN (2, 14, 16, 19);
 UPDATE usuarios SET id_categoria = 6 WHERE id_usuario IN (7, 18, 20);
 UPDATE usuarios SET id_categoria = 7 WHERE id_usuario IN (1, 2, 20);
 UPDATE usuarios SET id_categoria = 8 WHERE id_usuario IN (2, 6, 8, 17);
@@ -129,18 +129,53 @@ UPDATE usuarios SET id_categoria = 10 WHERE id_usuario IN (2, 3, 4, 6, 9, 14, 15
 -- Tu código aquí
 SELECT usuarios.id_usuario, usuarios.nombre, usuarios.apellido, usuarios.email, usuarios.edad, roles.nombre_rol, categorias.nombre_categoria
 FROM usuarios
-JOIN roles ON usuarios.id_rol = roles.id_rol;
-JOIN categorias ON usuarios.categorias = categorias.id_categoria;
+JOIN roles ON usuarios.id_rol = roles.id_rol
+JOIN categorias ON usuarios.id_categoria = categorias.id_categoria;
 
-
+ALTER TABLE usuarios ADD FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria);
 /* Relación tipo N:M */
 -- PASO 1
 -- Tu código aquí
-
+CREATE TABLE usuarios_categorias (
+    id_usuario_categoria INT AUTO_INCREMENT,
+    id_usuario INT,
+    id_categoria INT,
+    PRIMARY KEY (id_usuario_categoria),
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
+    FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria)
+)
 
 -- PASO 2
 -- Tu código aquí
-
+INSERT INTO usuarios_categorias (id_usuario, id_categoria) VALUES
+(1, 1), (1, 2), (1, 3),
+(2, 4), (2, 5),
+(3, 6), (3, 7),
+(4, 8), (4, 9), (4, 10),
+(5, 1), (5, 2),
+(6, 3), (6, 4), (6, 5),
+(7, 6), (7, 7), (7, 8),
+(8, 9), (8, 10),
+(9, 1), (9,2), (9, 3),
+(10, 4), (10, 5),
+(11, 6), (11, 7),
+(12, 8), (12, 9), (12, 10),
+(13, 1), (13, 2),
+(14, 3), (14,4), (14, 5),
+(15, 6), (15, 7),
+(16, 8), (16, 9),
+(17, 10), (17, 1), (17, 2),
+(18, 3), (18, 4),
+(19, 5), (19, 6),
+(20, 7), (20, 8), (20, 9), (20, 10);
 
 -- PASO 3
 -- Tu código aquí
+SELECT usuarios.id_usuario, usuarios.nombre, usuarios.apellido, usuarios.email, usuarios.edad, roles.nombre_rol, categorias.nombre_categoria
+FROM usuarios
+JOIN roles ON usuarios.id_rol = rols.id_rol
+JOIN usuarios_categorias ON usuarios.id_usuario = usuarios_categorias.id_categoria
+JOIN categorias ON usuarios_categorias.id_categoria = categorias.id_categoria ORDER BY id_usuario ASC;
+
+
+-- Ejercicio corregido en clase, Relación tipo N:M sin terminar, corregido en grupo
